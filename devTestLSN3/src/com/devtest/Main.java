@@ -25,25 +25,27 @@ public class Main {
         }
         sc.close();
         //System.out.println(ListOfGraphs);
-        int i = 0;
-        while(i < ListOfGraphs.size()) {
-            List<Integer> tempList = new ArrayList<>(ListOfGraphs.get(i));
-            if((i+1) == ListOfGraphs.size())
+        int graphAmount = ListOfGraphs.size();
+        for(int i = 0; i < graphAmount; i++) {
+            for(int j = 0; j < graphAmount; j++)
             {
-                break;
+                if(j == i)
+                    j++;
+                if(j >= graphAmount)
+                    break;
+                List<Integer> tempList = new ArrayList<>(ListOfGraphs.get(i));
+                tempList.retainAll(ListOfGraphs.get(j));
+                //System.out.println("j is " + j + " " + ListOfGraphs.get(j));
+                //System.out.println(tempList);
+                if(!(tempList.isEmpty()))
+                {
+                    ListOfGraphs.get(i).addAll(ListOfGraphs.get(j));
+                    //System.out.println(ListOfGraphs.get(i));
+                    ListOfGraphs.remove(j);
+                    j--;
+                    graphAmount = ListOfGraphs.size();
+                }
             }
-            tempList.retainAll(ListOfGraphs.get(i+1));
-            if(!(tempList.isEmpty()))
-            {
-                ListOfGraphs.get(i).addAll(ListOfGraphs.get(i+1));
-                //System.out.println(ListOfGraphs.get(i));
-                ListOfGraphs.remove(i+1);
-                i = 0;
-            } else
-            {
-                i++;
-            }
-
         }
 
         System.out.println(ListOfGraphs.size());
